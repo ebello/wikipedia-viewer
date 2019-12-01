@@ -25,3 +25,21 @@ export const searchPages = async (query) => {
     throw new Error(e);
   }
 };
+
+export const parsePage = async (pageid) => {
+  const params = {
+    action: 'parse',
+    pageid,
+    format: 'json',
+  };
+
+  const url = `${baseUrl}?origin=*&${joinParams(params)}`;
+
+  try {
+    const response = await fetch(url);
+    const result = await response.json();
+    return result;
+  } catch (e) {
+    throw new Error(e);
+  }
+};
