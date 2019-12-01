@@ -16,6 +16,7 @@ module.exports = {
     "import/core-modules": ["prop-types", "react"]
   },
   "rules": {
+    "no-return-assign": ["error", "except-parens"],
     "function-paren-newline": ["error", "consistent"],
     "react/jsx-filename-extension": [1, {
       "extensions": [".js", ".jsx"]
