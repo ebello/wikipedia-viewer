@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { navigate } from 'gatsby';
 import {
   Combobox,
   ComboboxInput,
@@ -27,14 +28,14 @@ const usePageSearch = (searchTerm) => {
 };
 
 const SearchPages = () => {
-  const { setViewingPageId } = useContext(WikipediaViewerContext);
+  const { setViewingPage } = useContext(WikipediaViewerContext);
   const [searchTerm, setSearchTerm] = useState('');
   const pages = usePageSearch(searchTerm);
 
   return (
     <Combobox
       openOnFocus
-      onSelect={(item) => setViewingPageId(pages.find((p) => p.title === item).pageid)}
+      onSelect={(item) => navigate(`/wiki/${item}`)}
     >
       <ComboboxInput
         onChange={(ev) => setSearchTerm(ev.target.value)}

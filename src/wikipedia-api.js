@@ -26,10 +26,10 @@ export const searchPages = async (query) => {
   }
 };
 
-export const parsePage = async (pageid) => {
+export const parsePage = async (title) => {
   const params = {
     action: 'parse',
-    pageid,
+    page: title,
     format: 'json',
   };
 
