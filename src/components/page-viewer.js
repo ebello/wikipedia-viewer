@@ -4,13 +4,17 @@ import { parsePage } from '../wikipedia-api';
 
 const usePageParse = (title) => {
   const [pageText, setPageText] = useState();
+  const { addToViewingHistory } = useContext(WikipediaViewerContext);
 
   useEffect(() => {
     let isFresh = true;
     if (title) {
       parsePage(title).then((res) => {
         console.log(res);
-        if (isFresh && res.parse) setPageText(res.parse.text['*']);
+        if (isFresh && res.parse) {
+          setPageText(res.parse.text['*']);
+          addToViewingHistory(title);
+        }
       });
     }
     // cancel setting state if the component is unmounted
@@ -21,7 +25,6 @@ const usePageParse = (title) => {
 };
 
 const PageViewer = ({ page }) => {
-  const { viewingPage } = useContext(WikipediaViewerContext);
   const pageText = usePageParse(page);
 
   return (

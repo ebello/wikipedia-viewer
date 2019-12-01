@@ -4,13 +4,20 @@ import PropTypes from 'prop-types';
 const WikipediaViewerContext = React.createContext();
 
 const WikipediaViewer = ({ children }) => {
-  const [viewingPage, setViewingPage] = useState();
+  const [viewingHistory, setViewingHistory] = useState([]);
+
+  const addToViewingHistory = (title) => {
+    setViewingHistory([...viewingHistory, {
+      timestamp: Date.now(),
+      title,
+    }]);
+  };
 
   return (
     <WikipediaViewerContext.Provider
       value={{
-        viewingPage,
-        setViewingPage,
+        viewingHistory,
+        addToViewingHistory,
       }}
     >
       {children}
