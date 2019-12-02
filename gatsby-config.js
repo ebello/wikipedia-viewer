@@ -10,10 +10,11 @@ module.exports = {
         short_name: 'Wikipedia',
         start_url: '/',
         background_color: '#ffffff',
-        theme_color: '#000000',
-        display: 'minimal-ui',
+        theme_color: '#ffffff',
+        display: 'standalone',
         icon: 'src/images/wikipedia-logo.png',
       },
     },
+    'gatsby-plugin-netlify',
   ],
 };
