@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, Styled } from 'theme-ui';
 import React, { useEffect, useState, useContext } from 'react';
 import { navigate } from 'gatsby';
 import {
@@ -7,9 +9,11 @@ import {
   ComboboxList,
   ComboboxOption,
 } from '@reach/combobox';
+import '@reach/combobox/styles.css';
 import matchSorter from 'match-sorter';
 import { useThrottle } from 'use-throttle';
 import { WikipediaViewerContext } from '../contexts/wikipedia-viewer';
+import ClearHistory from './clear-history';
 import { searchPages } from '../wikipedia-api';
 
 const usePageSearch = (searchTerm) => {
@@ -51,17 +55,39 @@ const SearchPages = () => {
     <Combobox
       openOnFocus
       onSelect={(item) => navigate(`/wiki/${item}`)}
+      sx={{
+        display: ['block', 'inline-block'],
+        width: ['100%', '50%'],
+      }}
     >
       <ComboboxInput
         onChange={(ev) => setSearchTerm(ev.target.value)}
         aria-label="Pages"
         selectOnClick
+        sx={{
+          width: '100%',
+          fontSize: [2, 4],
+        }}
+        placeholder="Search Wikipedia"
       />
       {(pages.length > 0 || history.length > 0) && (
         <ComboboxPopover>
           <ComboboxList>
-            {history.map((title) => <ComboboxOption key={title} value={title} />)}
-            {pages.map(({ title }) => <ComboboxOption key={title} value={title} />)}
+            {history.length > 0 && (
+              <React.Fragment>
+                <Styled.h5 sx={{ my: 2, ml: 2, color: 'primary' }}>
+                  Recent history
+                  <ClearHistory />
+                </Styled.h5>
+                {history.map((title) => <ComboboxOption key={title} value={title} />)}
+              </React.Fragment>
+            )}
+            {pages.length > 0 && (
+              <React.Fragment>
+                <Styled.h5 sx={{ my: 1, ml: 2, color: 'primary' }}>Search results</Styled.h5>
+                {pages.map(({ title }) => <ComboboxOption key={title} value={title} />)}
+              </React.Fragment>
+            )}
           </ComboboxList>
         </ComboboxPopover>
       )}
