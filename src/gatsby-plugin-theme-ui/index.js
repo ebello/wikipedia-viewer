@@ -6,10 +6,13 @@ module.exports = {
     backgroundHeader: 'rgb(239, 242, 244)',
     bgmuted: '#b3c1ca',
     primary: '#f00',
-    secondary: '#926e5a',
     // modes is necessary to enable the theme colors at the <body> level
     modes: {
-      other: {},
+      dark: {
+        text: '#fff',
+        background: '#000',
+        primary: '#0cf',
+      },
     },
   },
   fonts: {
